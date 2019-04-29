@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>Repsyche - Dashboard</title>
+
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Font Awesome JS -->
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+    <!--Firebase-->
+    <script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+</head>
+<style type="text/css">
+  h1{
+    color: #fff;
+    font-size: 64px;
+    letter-spacing: 2px;
+    margin-top: 80px;
+    text-align: center;
+}
+  
+ .somecontent{
+    background: #fff;
+    max-width: 960px;
+    margin: 30px auto;
+    padding:  20px 30px;
+    border-radius: 10px 120px 10px 10px;
+    box-shadow: 1px 3px 5px rgba(0,0,0,0.1)
+}
+.somecontent ul{
+    list-style-type: none;
+    padding: 0;
+}
+
+#Customer_list li{
+    padding: 20px;
+    background: #f6f6f6;
+    font-size: 20px;
+    color: #555;
+    position: relative;
+    border-bottom: 1px solid #e6e6e6;
+    height: 46px;
+}
+
+#Customer_list li:nth-child(even){
+    padding: 20px;
+    background: #f2f2f2;
+}
+
+#Customer_list li span{
+    display: block;
+}
+
+#Customer_list li span:nth-child(2){
+    font-size: 16px;
+    margin-top: 6px;
+    color:  gray;
+}
+
+#Customer_list li div{
+    position: absolute;
+    top: 0;
+    right: 0px;
+    background: rgba(100,95,85,0.6);
+    width: 40px;
+    text-align: center;
+    padding: 10px 0;
+    font-weight:  bold;
+    cursor:  pointer;
+}
+
+/*#Customer_form form input{
+    float: left;
+    width: 38%;
+    margin: 0;
+    border: 0;
+    border-bottom: 1px solid #eee;
+    margin: 0 1%;
+    padding: 10px;
+    display: block;
+    box-sizing: border-box;
+    font-size: 18px;
+}
+
+#Customer_form form input:focus{
+    outline: none;
+    border-bottom: 3px solid #88236f;
+    padding-bottom: 8px;
+    transition: all ease 0.2s;
+}
+
+#Customer_form form:after{
+    content: '';
+    clear: both;
+    display: block;
+}
+
+#Customer_form button{
+    border: 0;
+    background: #fff;
+    border-radius: 10px;
+    padding: 13px;
+    width: 14%;
+    box-shadow: -1px 0px 1px rgba(0,0,0,0.1);
+    font-weight: bold;
+    font-family: ubuntu;
+    letter-spacing: 1px;
+    color: #999;
+}*/
+
+
+</style>
+
+
+<body>
+    <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                <h3>RePsyche App</h3>
+            </div>
+
+            <ul class="list-unstyled components">
+                <p>Mathew Mhango</p>
+                <li>
+                    <a href="Dashboard.html">Home</a>
+                    
+                </li>
+                <li>
+                    <a href="ScanQR.html">Scan QR code</a>
+                </li>
+                <li class="active">
+                    <a href="#">Top Earners</a>
+                </li>
+                <li>
+                    <a href="https://chakula-checker.herokuapp.com/">Shop</a>
+                </li>
+            </ul>
+
+            <ul class="list-unstyled CTAs">
+                <li>
+                    <a href="#" class="download">Sign Out</a>
+                </li>
+            </ul>
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="container-fluid">
+
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <span>Repsyche tools</span>
+                    </button>
+                </div>
+            </nav>
+        
+
+    <h1>RePsyche</h1>
+    
+
+    <div class="somecontent">     
+            <form id="Customer_form"></form>
+            <ul id="Customer_list">
+                <li>The Guardians Of Our Future</li>
+            </ul>
+
+    </div>
+
+
+    </div>
+
+     <!--Connection-->
+   <script type="text/javascript"> var config = {
+    apiKey: "AIzaSyDGP4ZG8tZleJd6DSC3VCK8U6UqKDgxVoA",
+    authDomain: "repsych-a3f2e.firebaseapp.com",
+    databaseURL: "https://repsych-a3f2e.firebaseio.com",
+    projectId: "repsych-a3f2e",
+    storageBucket: "repsych-a3f2e.appspot.com",
+    messagingSenderId: "869951852414"
+  };
+
+
+firebase.initializeApp(config);
+const db = firebase.firestore();
+db.settings({ timestampsInSnapshots: true});
+</script>
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
+
+    <script type="text/javascript" src="app.js">
+    </script>
+
+
+</body>
+
+</html>

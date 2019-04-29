@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RePsyche</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> 
+
+<script src="https://www.gstatic.com/firebasejs/5.10.1/firebase.js"></script>
+
+<style type="text/css">
+	body {
+		background-image: url("background.jpg");
+	}
+	.navbar-default{
+		background-color: #F8F8F8;
+	}
+	
+	.login-form {
+		width: 340px;
+    	margin: 50px auto;
+	}
+    .login-form form {
+    	margin-bottom: 15px;
+        background: #f7f7f7;
+        box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+        padding: 30px;
+    }
+    .login-form h2 {
+        margin: 0 0 15px;
+    }
+    .form-control, .btn {
+        min-height: 38px;
+        border-radius: 2px;
+    }
+    .btn {        
+        font-size: 15px;
+        font-weight: bold;
+    }
+    a.things{
+    	color: white;
+      cursor: pointer;
+    }
+</style>
+
+
+</head>
+<body>
+  <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+  <!-- Loads the entire Firebase JavaScript SDK -->
+<nav class="navbar navbar-default">
+	<a class="navbar-brand" href="#">RePsyche </a>
+</nav>
+
+
+<div class="login-form">
+    <form method="post" >
+        <h2 class="text-center">Sign in</h2>       
+        <div class="form-group">
+            <input id="email" type="text" class="form-control" placeholder="Email" required="required">
+        </div>
+        <div class="form-group">
+            <input id="psword" type="password" class="form-control" placeholder="Password" required="required">
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" onclick="window.location.href = 'Dashboard.html';"> Sign in</button>
+        </div>
+        <div class="clearfix">
+            <label class="pull-left checkbox-inline"><input type="checkbox"> Remember me</label>
+            <a href="login.html" class="pull-right">Already have an account?</a>
+        </div>        
+    </form>
+    <p class="text-center"><a onclick="googleLogin()">Google sign-up</a></p>
+
+
+</div>
+
+
+<!--JS Scripts-->
+<script>
+
+  var config = {
+    apiKey: "AIzaSyDGP4ZG8tZleJd6DSC3VCK8U6UqKDgxVoA",
+    authDomain: "repsych-a3f2e.firebaseapp.com",
+    databaseURL: "https://repsych-a3f2e.firebaseio.com",
+    projectId: "repsych-a3f2e",
+    storageBucket: "repsych-a3f2e.appspot.com",
+    messagingSenderId: "869951852414"
+  };
+  firebase.initializeApp(config);
+
+function makeuser(){
+
+var email = document.getElementById('email').value;
+var password = document.getElementById('psword').value;
+      
+      if (email.length < 4) {
+        alert('Please enter an email address.');
+        return;
+      }
+      if (password.length < 4) {
+        alert('Please enter a password.');
+        return;
+      }
+
+firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+   console.log(error.code);
+   console.log(error.message);
+   
+   var errorCode = error.code;
+   var errorMessage = error.message;
+   
+   if (errorCode == 'auth/weak-password') {
+          alert('The password is too weak.');
+        } else {
+          alert(errorMessage);
+        }
+        console.log(error);
+});
+
+function sendEmailVerification() {
+      // sende mail verification
+      firebase.auth().currentUser.sendEmailVerification().then(function() {
+        alert('Email Verification Sent!');
+      });}
+
+
+}
+
+function googleLogin(){
+const provider = new firebase.auth.GoogleAuthProvider();
+firebase.auth().signInWithPopup(provider)
+.then(result =>{
+const user = result.user;
+document.writer('Hello ${user.displayName}')
+console.log(user)
+}).catch(console.log)
+
+}
+
+</script>
+</body>
+</html>                                		                            
